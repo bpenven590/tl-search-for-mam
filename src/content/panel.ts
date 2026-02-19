@@ -683,6 +683,7 @@ export class SearchPanel {
     this.totalResults = 0;
     this.searchInput.value = '';
     this.resultsArea.innerHTML = '';
+    this.resetImageState();
     this.removeEntityChip();
 
     const countEl = this.panel.querySelector<HTMLElement>('.result-count');
