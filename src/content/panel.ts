@@ -17,6 +17,8 @@ interface StoredSession {
   nextPageToken?: string;
   totalResults: number;
   timestamp: number;
+  imageUrl?: string;
+  imageName?: string;
 }
 
 const PANEL_STYLES = `
@@ -299,6 +301,7 @@ export class SearchPanel {
   private totalResults = 0;
   private currentSearchType: 'text' | 'image' = 'text';
   private currentImageUrl?: string;
+  private currentImageName?: string;
   private isLightTheme = false;
   private selectedEntity: { id: string; name: string } | null = null;
   private entityChip: EntityChip | null = null;
@@ -470,6 +473,7 @@ export class SearchPanel {
         if (typeof reader.result === 'string') {
           this.currentSearchType = 'image';
           this.currentImageUrl = reader.result;
+          this.currentImageName = file.name;
           this.imagePreviewThumb.src = reader.result;
           this.imagePreviewName.textContent = file.name;
           this.imagePreview.classList.add('visible');
@@ -568,6 +572,7 @@ export class SearchPanel {
   private resetImageState(): void {
     this.currentSearchType = 'text';
     this.currentImageUrl = undefined;
+    this.currentImageName = undefined;
     this.imageBtn.title = 'Search by image';
     this.imageFileInput.value = '';
     this.imagePreview.classList.remove('visible');
@@ -697,6 +702,8 @@ export class SearchPanel {
         nextPageToken: this.nextPageToken,
         totalResults: this.totalResults,
         timestamp: Date.now(),
+        imageUrl: this.currentImageUrl,
+        imageName: this.currentImageName,
       };
       sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
     } catch {
@@ -716,6 +723,16 @@ export class SearchPanel {
       this.nextPageToken = saved.nextPageToken;
       this.totalResults = saved.totalResults;
       this.searchInput.value = saved.query;
+
+      if (saved.imageUrl && saved.imageName) {
+        this.currentSearchType = 'image';
+        this.currentImageUrl = saved.imageUrl;
+        this.currentImageName = saved.imageName;
+        this.imagePreviewThumb.src = saved.imageUrl;
+        this.imagePreviewName.textContent = saved.imageName;
+        this.imagePreview.classList.add('visible');
+        this.imageBtn.title = 'Clear image';
+      }
 
       this.renderResultsUI();
     } catch {
