@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "TwelveLabs Search for MAM",
+  "version": "1.0.0",
+  "description": "Semantic video search for your MAM, powered by TwelveLabs.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://api.twelvelabs.io/*",
+    "https://app.iconik.io/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://app.iconik.io/*"],
+      "js": ["keyboard-guard.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://app.iconik.io/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*", "styles/*"],
+      "matches": ["https://app.iconik.io/*"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/tl-icon-16.png",
+      "48": "icons/tl-icon-48.png",
+      "128": "icons/tl-icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/tl-icon-16.png",
+    "48": "icons/tl-icon-48.png",
+    "128": "icons/tl-icon-128.png"
+  }
+}
