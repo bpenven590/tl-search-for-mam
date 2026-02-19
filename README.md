@@ -71,42 +71,59 @@ Type a query and press **Enter** or click **Search**. Results are ranked by sema
 
 Click the image icon inside the search bar, select an image file. A thumbnail preview appears. Optionally add a text query to combine both signals, then click **Search**.
 
-### Entity tagging (`@` mention)
+### Entity search (`@` mention)
 
-Type `@` in the search bar to open the entity selector dropdown:
+Entities are named subjects — people, talent, on-screen personalities — that TwelveLabs recognizes visually. Once you register an entity with reference images, you can filter any search to only show moments where that person appears.
 
-- Browse your entity collections and pick a person or subject
-- The entity is added as a chip (`@Name`) in the search bar
-- Searches are scoped to that entity — results show only segments where the entity appears
-- Press **Escape** or click the `×` on the chip to remove the entity filter
-- The `@` is cleaned up from the input automatically on dismiss
+**How it works:**
+1. Create an entity collection (e.g. "Talent", "Athletes", "Executives")
+2. Add entities to the collection, each with 1–5 reference face images
+3. TwelveLabs processes the images and learns to recognize that person in your videos
+4. Tag the entity in a search to scope results to segments where they appear
+
+**Tagging an entity in a query:**
+
+Type `@` in the search bar to open the entity selector:
+
+- Browse collections → click a collection to expand it and see its entities
+- Click an entity to tag it — it appears as a chip (`@Name`) in the search bar
+- Searches are now scoped to that entity — only segments where the person appears are returned
+- Combine with a text query (e.g. `@John speaking on stage`) for compound filtering
+- Press **Escape** or click `×` on the chip to remove the entity filter
+- The `@` is automatically cleaned up when you dismiss without selecting
 
 **Navigation within the entity selector:**
-- Click a collection to expand it and see its entities
-- `← Collections` header appears when a collection is expanded — click to collapse back
-- **Manage entities** at the bottom opens the full entity browser; a `←` back button returns you to the `@` selector
+- `← Collections` header appears when a collection is expanded — click to go back to the full list
+- **Manage entities** at the bottom opens the full entity browser
+- Once in the entity browser, `← Back to search` returns you to the `@` selector without losing your query
 
 ### Manage Entities browser
 
-Accessible via `@` → Manage entities, or directly via `⊞` in the search bar. Full CRUD for entity collections and entities:
+Accessible via `@` → **Manage entities**, or directly via `⊞` in the search bar. Full CRUD for entity collections and entities.
 
 **Collections view**
 - Lists all entity collections with live entity counts
-- **New Collection** — create a collection; navigates directly into it on success
-- `←` Back to search (when opened via `@` mention)
-- `×` closes the panel
+- **New Collection** — opens the create form; on success navigates directly into the new collection
+- `←` Back to search (when opened via `@` mention) — returns to the entity selector
+- `×` closes the panel entirely
 
 **Entities view (inside a collection)**
-- Lists entities with status badges (`ready` / `processing`)
-- Filter bar to search within the collection by name
+- Lists entities with status badges: `ready` (recognized and searchable) or `processing` (images still indexing)
+- Filter bar — type to search within the collection by name
 - **New Entity** — opens the create form
-- Delete button (hover to reveal) removes an entity immediately
+- Delete button (revealed on hover) — removes the entity immediately
 - `←` goes back to collections
 - `×` closes the panel
 
-**Create Collection / Create Entity forms**
-- Name input with inline error messages (e.g. duplicate name)
-- Entity creation supports uploading up to 5 reference images (drag-and-drop or file picker)
+**Create Entity form**
+- Name input with inline validation (e.g. flags duplicate names before submitting)
+- Upload up to 5 reference images — drag-and-drop or file picker
+- Use clear, well-lit face shots for best recognition accuracy
+- `←` goes back without saving
+- `×` closes the panel
+
+**Create Collection form**
+- Name input with inline validation
 - `←` goes back without saving
 - `×` closes the panel
 
