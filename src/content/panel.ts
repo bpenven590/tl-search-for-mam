@@ -623,15 +623,16 @@ export class SearchPanel {
     try {
       chrome.runtime.sendMessage(request, (response: SearchResponse) => {
         this.searchBtn.disabled = false;
-        this.resetImageState();
 
         // chrome.runtime.lastError must be checked when using callbacks
         if (chrome.runtime.lastError) {
+          this.resetImageState();
           renderError(this.resultsArea, 'Extension was updated. Please refresh the page.');
           return;
         }
 
         if (!response || !response.success) {
+          this.resetImageState();
           renderError(this.resultsArea, response?.error ?? 'Search failed');
           return;
         }
